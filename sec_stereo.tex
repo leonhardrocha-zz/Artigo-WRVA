@@ -1,0 +1,27 @@
+\section{Fundamentals of Stereo Vision}
+\label{sec.stereo}
+
+There are two primary factors to generate a 3D stereo vision, convergence and binocular parallax~\cite{okoshi2012}. The convergence is the angle formed by the eyes and the observed object. The higher the angle value is, the nearer the object is perceived, and vice versa. Therefore, when the convergence is fixed, any object between the eyes and the convergence point will be closer, while the object beyond the convergence point will be farther away. If the convergence is higher then $6^{\circ}$, the eyes feel uneasy~\cite{Fernando2004}. On the contrary, when the value is too small, the stereo sensation will be lost.
+
+Binocular parallax is the difference of images seen by each eye when viewing a scene, creating a sense of depth~\cite{li2012}. The	parallax images are the images passing through to left and right eyes. All 3D stereo media contain a pair of parallax images that are projected on the display, as in Figure~\ref{fig.stereo_parallaxes}. If the images in the pair superimpose, then the binocular focus is on the plane of the images and there is zero parallax.
+
+The positive parallax happens when the target object offsets to the left in the left image, and offsets to the right in the right image, then the binocular focus is lead to fall behind the display, shown in Figure~\ref{fig.stereo_parallaxes}. On the opposite case, the binocular focus is in front of the display, the target offsets are reversed, causing a negative parallax illustrated in Figure~\ref{fig.stereo_parallaxes}.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\linewidth,keepaspectratio=true]{figs/stereo_parallaxes.png}
+
+%\begin{tabular}{ccc}
+%\includegraphics[width=0.3\linewidth,keepaspectratio=true]{figs/zero_parallax.png}
+%&
+%\includegraphics[width=0.3\linewidth,keepaspectratio=true]{figs/positive_parallax.png}
+%&
+%\includegraphics[width=0.3\linewidth,keepaspectratio=true]{figs/negative_parallax.png}
+%\\
+%(a)&(b)&(c)\\
+%\end{tabular}
+\caption{Zero, positive and negative stereo parallaxes. }
+\label{fig.stereo_parallaxes}
+\end{figure}
+
+\input{sec_stereo_displays}

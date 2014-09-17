@@ -3,38 +3,55 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{natbib}
+\usepackage[numbers]{natbib}
 \usepackage{graphicx}
+\usepackage{color}
+\usepackage{soul}
 
-\title{Hologram Emulation Using Fishtank With Stereo Visualization}
-\author
-{
-\IEEEauthorblockN{Leonardo Marques Rocha}
-\IEEEauthorblockN{Homer Simpson}
-\IEEEauthorblockA{Twentieth Century Fox\\
-Springfield, USA\\
-Email: homer@thesimpsons.com}\and
-\IEEEauthorblockN{Marcelo da Silva Hounsell}
-\IEEEauthorblockA{Starfleet Academy\\
-San Francisco, California 96678-2391\\
-Telephone: (800) 555--1212\\
-Fax: (888) 555--1212\\
-Email: http://www.michaelshell.org/contact.html}
+
+\title{Holographic Emulation by using Fish Tank Virtual Reality, Stereographic Display and Virtual Screen}
+\sethlcolor{black}
+\author{
+\IEEEauthorblockN{\hl{Leonardo Marques Rocha}}
+\IEEEauthorblockN{\hl{Homer Simpson}}
+\IEEEauthorblockA{\hl{Twentieth Century Fox}\\
+\hl{Springfield, USA}\\
+\hl{Email: homer@thesimpsons.com}}
+\and
+\IEEEauthorblockN{\hl{Marcelo da Silva Hounsell}}
+\IEEEauthorblockA{\hl{Starfleet Academy}\\
+\hl{San Francisco, California 96678-2391}\\
+\hl{Telephone: (800) 555--1212}\\
+\hl{Fax: (888) 555--1212}\\
+\hl{Email: margie@thesimpsons.com}}
+\and
+\IEEEauthorblockN{\hl{Andre Tavares da Silva}}
+\IEEEauthorblockA{\hl{Starfleet Academy}\\
+\hl{San Francisco, California 96678-2391}\\
+\hl{Telephone: (800) 555--1212}\\
+\hl{Fax: (888) 555--1212}\\
+\hl{Email: bart@thesimpsons.com}}
 }
 \begin{document}
 
 \maketitle
 
+\begin{abstract}
+This work proposes a new visualization technique to emulate an holographic display with off-the-shelf hardware. Holographic visualization demands an insurmountable volume of data to process and specialized hardware. The stereo visualization technology is common place now and can be combined with existing visualization techniques in order to emulate a hologram. Stereo visualization is combined with Head Coupled Perspective (HCP) in a Fish Tank Virtual Reality (FTVR) environment. These combined techniques create a virtual screen where the hologram is projected with the depth cues for natural immersion in Virtual Reality. Another contribution of this paper is an accompanying visualization pipeline, that delivers consistent and comprehensive 3D graphics in a standard framework.
+\end{abstract}
+
 \input{sec_introduction}
 
-\input{sec_hologram_emulation}
+\input{sec_stereo}
 
-\input{sec_holographic_projection}
+\input{sec_visualization}
+
+\input{sec_holographic}
 
 \input{sec_results}
 
 \input{sec_conclusion}
 
-\bibliographystyle{plain}
+\bibliographystyle{IEEEtranN}
 \bibliography{references}
 \end{document}

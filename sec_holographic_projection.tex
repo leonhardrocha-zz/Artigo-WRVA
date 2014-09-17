@@ -1,9 +1,9 @@
 \section{Holographic Projection}
-\label{sec.holographic_projection}
+\label{sec.hologram_projection}
 
-In the proposed holographic projection, the perspective projection is computed in a similar way, a 3D point in a truncated pyramid frustum (eye coordinates) is mapped to NDC; and the range of $x$ and $y$-coordinates from respectively $[l, r]$ and $[b, t]$ are still  mapped to $[-1, 1]$, but the $z$-coordinate is mapped in the inverse way, from $[n, f]$ to $[1, -1]$. 
+In the proposed holographic projection, the perspective projection is computed in a similar way, a 3D point in a truncated pyramid frustum (eye coordinates) is mapped to NDC; and the range of $x$ and $y$-coordinates from respectively $[l, r]$ and $[b, t]$ are still mapped to $[-1, 1]$, but the $z$-coordinate is mapped in the inverse way, from $[n, f]$ to $[1, -1]$. 
 
-Note that the eye coordinates are still defined in the right-handed coordinate system, but now the camera at the origin is looking along $+Z$ axis in eye space, but it is looking along $+Z$ axis in NDC. This inversion in the orientation of the $Z$ axis can be achieve by a permutation matrix, which changes the orientation of the $z$ coordinates and negates the third column of the projection matrix in Equation~\ref{eq.projection_matrix}.
+Note that the eye coordinates are still defined in the right-handed coordinate system, but now the camera at the origin is looking along $+Z$ axis in eye space, and along $+Z$ axis in NDC. The inversion of the $Z$  axis in Figure~\ref{fig.new_projection01} can be achieve by negating the third column of the projection matrix in Equation~\ref{eq.projection_matrix}.
 
 %Since glFrustum() accepts only positive values of near and far distances, we need to negate them during the construction of \verb|GL_PROJECTION| matrix.
 
@@ -32,11 +32,11 @@ Note that the eye coordinates are still defined in the right-handed coordinate s
 The permuted projection matrix is; 
 \begin{equation}
 \begin{aligned}
-\begin{pmatrix} x_{c}\\y_{c}\\z_{c}\\w_{c} \end{pmatrix} &= 
+M^{\prime}_{proj} &= 
 \begin{pmatrix} 
 \frac{2n}{r-l} & 0 & -\frac{r+l}{r-l} & 0 \\
 0 & \frac{2n}{t-b} & -\frac{t+b}{t-b} & 0 \\
-\cdot & \cdot & -\frac{(f+n)}{f-n} & \frac{2fn}{f-n} \\
+0 & 0 & \frac{(f+n)}{f-n} & \frac{2fn}{f-n} \\
 0 & 0 & 1 & 0 \\
 \end{pmatrix} \\
 \end{aligned}
