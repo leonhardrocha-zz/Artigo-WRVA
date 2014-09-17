@@ -1,0 +1,201 @@
+From the top view of the frustum, the $x$-coordinate of eye space, $x_e$ is mapped to $x_p$, which is calculated by using the ratio of similar triangles; 
+
+\begin{equation}
+\begin{aligned}
+\begin{split}
+\frac{x_p}{x_e}&=\frac{n}{z_e}\\
+x_p&=\frac{n \cdot x_e}{z_e}\\
+\end{split}
+\end{aligned}
+\label{eq.newxp}
+\end{equation}
+
+From the side view of the frustum, $y_p$ is also calculated in a similar way; 
+
+\begin{equation}
+\begin{aligned}
+\begin{split}
+\frac{y_p}{y_e}&=\frac{n}{z_e}\\
+y_p&=\frac{n \cdot y_e}{z_e}\\
+\end{split}
+\end{aligned}
+\label{eq.newyp}
+\end{equation}
+
+Note that both $x_p$ and $y_p$ on Equations~\ref{eq.newxp} and~\ref{eq.newyp} depend on $z_e$, instead of the $-z_e$ in the previous Equations~\ref{eq.xp} and~\ref{eq.yp}.
+
+Therefore, we can set the $w$-component of the clip coordinates as $z_e$ using Equation~\ref{eq.clip} and the 4th of the \verb|GL_PROJECTION| matrix in Equation~\ref{eq.rows} becomes $(0, 0, 1, 0)$;
+
+\begin{equation}
+\begin{aligned}
+\begin{split}
+\begin{pmatrix} x_{c}\\y_{c}\\z_{c}\\w_{c} \end{pmatrix} &= 
+\begin{pmatrix} 
+\cdot & \cdot & \cdot & \cdot \\
+\cdot & \cdot & \cdot & \cdot \\
+\cdot & \cdot & \cdot & \cdot \\
+0 & 0 & 1 & 0 \\
+\end{pmatrix} &=
+\begin{pmatrix} x_{e}\\y_{e}\\z_{e}\\w_{e} \end{pmatrix}
+\end{split}
+\end{aligned}
+\label{eq.newrows}
+\end{equation}
+
+Next, we map $x_p$ and $y_p$ to $x_n$ and $y_n$ of NDC using the same with linear relationship, $[l, r] \Rightarrow [-1, 1]$ and $[b, t] \Rightarrow [-1, 1]$, in equations~\ref{eq.xn} and~\ref{eq.yn}.
+
+Then, we substitute $x_p$ and $y_p$ into the equations;
+
+\begin{equation}
+    \begin{aligned}
+x_n& = \frac{2x_p}{r-l} - \frac{r+l}{r-l}\\
+   &=\frac{2 \frac{n \cdot x_e}{z_e} }{r-l} -                    \frac{r+l}{r-l}\\
+   &=\frac{2 \cdot n \cdot x_e}{(r-l)(z_e)} -
+   \frac{r+l}{r-l}\\
+   &=\frac{ \frac{2n\cdot x_e}{r-l} }{z_e}  -
+   \frac{r+l}{r-l}\\
+   &=\frac{ \frac{2n}{r-l} \cdot x_e }{z_e} - 
+   \frac{ \frac{r+l}{r-l} \cdot z_e}{z_e}\\
+   &=\underbrace{\left( \frac{2n}{r-l} \cdot x_e - \frac{r+l}{r-l}\cdot z_e\right)}_{x_c} \left.\frac{}{}\middle/\frac{}{}\right.{z_e}
+   \end{aligned}
+\end{equation}
+
+\begin{equation}
+    \begin{aligned}
+y_n& = \frac{2y_p}{t-b} - \frac{t+b}{t-b}\\
+   &=\frac{2 \frac{n \cdot y_e}{z_e} }{t-b} -
+   \frac{t+b}{t-b}\\
+   &=\frac{2 \cdot n \cdot y_e}{(t-b)(z_e)} -
+   \frac{t+b}{t-b}\\
+   &=\frac{ \frac{2n\cdot y_e}{t-b} }{z_e}  - 
+   \frac{t+b}{t-b}\\
+   &=\frac{ \frac{2n}{t-b} \cdot y_e }{z_e} + 
+   \frac{ \frac{t+b}{t-b} \cdot z_e}{z_e}\\
+   &=\underbrace{\left( \frac{2n}{t-b} \cdot y_e -
+   \frac{t+b}{t-b}\cdot z_e\right)}_{y_c}
+   \left.\frac{}{}\middle/\frac{}{}\right.{z_e}\\
+    \end{aligned}
+\end{equation}
+
+Note that we make both terms of each equation divisible by $z_e$ for perspective division $(x_c/w_c, y_c/w_c)$. And we set $w_c$ to $z_e$ earlier, and the terms inside parentheses become $x_c$ and $y_c$ of the clip coordinates.
+
+From these equations, we can find the 1st and 2nd rows of \verb|GL_PROJECTION| matrix. 
+
+\begin{equation}
+    \begin{aligned}
+        \begin{pmatrix} 
+            x_{c}\\y_{c}\\z_{c}\\w_{c}
+        \end{pmatrix} 
+    &= 
+        \begin{pmatrix} 
+            \frac{2n}{r-l} & 0 & -\frac{r+l}{r-l} & 0 \\
+            0 & \frac{2n}{t-b} & -\frac{t+b}{t-b} & 0 \\
+            \cdot & \cdot & \cdot & \cdot \\
+            0 & 0 & 1 & 0 \\
+        \end{pmatrix}
+    \end{aligned}
+\end{equation}
+
+
+In order to solve the 3rd row of \verb|GL_PROJECTION| matrix for $z_n$, $z_e$ in eye space is now projected to $n$ on the near plane. Therefore, we can specify the 3rd row of \verb|GL_PROJECTION| matrix like this in a similar way as in equation~\ref{eq.zn}, but mapping $w_c$ to $z_e$; 
+
+\begin{equation}
+    \begin{aligned}
+        \begin{pmatrix} 
+            x_{c}\\y_{c}\\z_{c}\\w_{c} 
+        \end{pmatrix} &= 
+        \begin{pmatrix} 
+            \frac{2n}{r-l} & 0 & \frac{r+l}{r-l} & 0 \\
+            0 & \frac{2n}{t-b} & \frac{t+b}{t-b} & 0 \\
+            \cdot & \cdot & A & B \\
+            0 & 0 & -1 & 0 \\
+        \end{pmatrix} \\
+        z_n &= \frac{z_c}{w_c}= \frac{Az_e+Bw_e}{z_e}
+    \end{aligned}
+\label{eq.newzn}
+\end{equation}
+
+In eye space, $w_e$ equals to $1$. Therefore, the equation becomes; 
+
+\begin{equation}
+\begin{aligned}
+\begin{split}
+    z_n &= \frac{Az_e+B}{z_e}
+\end{split}    
+\end{aligned}
+\label{eq.newznreduced}
+\end{equation}
+
+
+To find the new coefficients $A$ and $B$, we use the new $(z_e, z_n)$ relation in Equation~\ref{eq.newznreduced}; $(n, 1)$ and $(f, -1)$, and put them into the below equations; 
+
+\begin{equation}
+\begin{aligned}
+    \frac{An+B}{n} &= 1 \\
+    An+B &= n
+\end{aligned}
+\label{eq.newnear}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\begin{split}
+    \frac{Af+B}{f} &= -1\\
+    Af+B &= -f
+\end{split}    
+\end{aligned}
+\label{eq.newfar}
+\end{equation}
+
+To solve the equations for $A$ and $B$, rewrite Equation~\ref{eq.newnear} for $B$;
+
+\begin{equation}
+\begin{aligned}
+\begin{split}
+    B &= n-An
+\end{split}    
+\end{aligned}
+\label{eq.newalfabeta}
+\end{equation}
+
+
+Substitute Equation~\ref{eq.newalfabeta} to $B$ in Equation~\ref{eq.newfar}, then solve for $A$; 
+
+\begin{equation}
+\begin{aligned}
+\begin{split}
+    Af+(n-An) & =-f\\
+    (f-n)A &= -f-n\\
+    A &= -\frac{f+n}{f-n}
+\end{split}    
+\end{aligned}
+\label{eq.newalfa}
+\end{equation}
+
+Put $A$ into Equation~\ref{eq.newalfabeta} to find B;
+
+\begin{equation}
+\begin{aligned}
+\begin{split}
+    B &= n-(-\frac{f+n}{f-n}n)\\
+      &= n+\frac{f+n}{f-n}n\\
+      &= \left(1+\frac{f+n}{f-n}\right)n
+      =  \left(\frac{f-n+f+n}{f-n}\right)n\\
+      &= \frac{2fn}{f-n}
+\end{split}    
+\end{aligned}
+\label{eq.newbeta}
+\end{equation}
+
+We found $A$ and $B$. Therefore, the relation between $z_e$ and $z_n$ becomes; 
+
+\begin{equation}
+\begin{aligned}
+\begin{split}
+    z_n &= \frac{-\frac{f+n}{f-n}z_e+\frac{2fn}{f-n}}{z_e}\\
+\end{split}    
+\end{aligned}
+\label{eq.newznfinal}
+\end{equation}
+
+Finally, we found all entries of \verb|GL_PROJECTION| matrix.
