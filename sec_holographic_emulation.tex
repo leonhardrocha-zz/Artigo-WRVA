@@ -1,25 +1,26 @@
 \subsection {Holographic Emulation}
 \label{sec.holographic_emulation}
 
-The proposal of this work is to investigate a VR environment that can provide the combined effects of the hologram but that don't have the computational cost of CGH. Most of current VR environments can be composed of off-the-shelf hardware, and the proposed environment does not rely on specialized hardware for CGH to avoid the its high costs~\cite{fournier2004}. The proposed VR environment is composed by two 3D standard stereo TVs, combined in a Fish Tank Virtual Reality (FTVR)~\cite{Ware1993} environment and a depth camera. The camera creates a Head Coupled Perspective (HCP)~\cite{okoshi2012}, as shown in Figure~\ref{fig.tv_setup}a, by projecting virtual objects considering the location of the viewer, which is acquired by tracking. HCP improves the depth perception~\cite{li2012} and, when combined with stereo vision, can create an holographic emulation. 
+The proposal of this work is to investigate a Virtual Reality (VR) environment that can provide the combined effects of the hologram but that don't have the computational cost of CGH. Most of current VR environments can be composed of off-the-shelf hardware, and the proposed environment does not rely on specialized hardware for CGH to avoid its high costs~\cite{fournier2004}. The proposed VR environment is composed by two 3D standard stereo TVs, combined in a Fish Tank Virtual Reality (FTVR)~\cite{Ware1993} environment and a depth camera. The camera creates a Head Coupled Perspective (HCP)~\cite{okoshi2012}, as shown in Figure~\ref{fig.tv_setup}, by projecting virtual objects considering the location of the viewer, which is acquired by tracking. HCP improves the depth perception~\cite{li2012} and, when combined with stereo vision, can create an holographic emulation. 
 
-The FTVR is combined with HCP and stereo vision to create a virtual screen, which is the perceived screen from the depth cues created by the two stereo displays that are juxtapositioned with a tilt angle of $120^{\circ}$ in Figure~\ref{fig.tv_setup}a. The surround viewing is achieved by tracking the position of the viewer as in the original FTVR setup. Although HCP is has been reported more important than stereo in 3D visualization~\cite{Ware1993}, the holographic perception is created using the binocular parallax. The HCP viewing is adjusted with negative parallax to create the depth cue of the virtual screen and the spectral illusion of Pepper's Ghost. Other depth cues are adjusted to the viewing angle of the virtual screen using the position tracked by the the depth camera.
+The FTVR is combined with HCP and stereo vision to create a virtual screen, which is the perceived screen from the depth cues created by the two stereo displays that are juxtapositioned with a tilt angle of in Figure~\ref{fig.tv_setup}. The surround viewing is achieved by tracking the position of the viewer as in the original FTVR setup. Although HCP is has been reported more important than stereo in 3D visualization~\cite{Ware1993}, the holographic perception is created using the binocular parallax. The HCP viewing is adjusted with negative parallax to create the depth cue of the virtual screen and the spectral illusion of Pepper's Ghost. Other depth cues are adjusted to the viewing angle of the virtual screen using the position tracked by the the depth camera.
 
 \begin{figure}[!hbt]
 \centering
-\begin{tabular}{cc}
-\includegraphics[width=0.4\linewidth,keepaspectratio=true]{figs/labsetup_01.png}&
-\includegraphics[width=0.4\linewidth,keepaspectratio=true]{figs/labsetup_02.png}\\
-(a) Virtual screen & 
-(b) Tracking frustum
-\end{tabular}
-\caption{FTVR setup of the stereo displays and Kinect.}
+%\begin{tabular}{cc}
+\includegraphics[width=\linewidth,keepaspectratio=true]{figs/labsetup_01.png}
+%&
+%\includegraphics[width=0.4\linewidth,keepaspectratio=true]{figs/labsetup_02.png}\\
+%(a) Virtual screen & 
+%(b) Tracking frustum
+%\end{tabular}
+\caption{FTVR setup of the stereo displays and depth camera.}
 \label{fig.tv_setup}
 \end{figure}
 
 The tracking system has to capture the position of the viewer with high accuracy in order to avoid incorrect HCP. It also needs to be robust to body movement or objects that may partially occlude the viewer. In order to achieve the desired robustness and accuracy, a depth camera is used instead of a standard RGB camera. The depth sensor has a higher accuracy in the estimation of the depth and with this information can remove artifacts in the image that are occluding or degrading the positional information of obtained from the RGB channels. 
 
-Although the proposed emulation has the restriction of a single viewer for simplicity, the proposed setup can be extended up to four viewers. The depth information can be also used to distinguish two people in front of the TVs, and two depth cameras can be combined to track four viewers. The standard stereo TVs with $240Hz$ refresh rate can provide stereo pairs up to four viewers with some flickering~\cite{Frohlich2005}. 
+Although the proposed emulation has the restriction of a single viewer for simplicity, the proposed setup can be extended up to four viewers. The depth information can be also used to distinguish two people in front of the TVs, and two depth cameras can be combined to track four viewers. The standard stereo TVs with 240 Hz refresh rate can provide stereo pairs up to four viewers with some flickering~\cite{Frohlich2005}. 
 
 %This investigation setups two 3D displays forming the FTVR as in the illustration of Figure~\ref{fig.tv_setup}a. 
 

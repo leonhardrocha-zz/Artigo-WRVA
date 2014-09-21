@@ -31,7 +31,7 @@ M_{eye} &=
 
 Regarding the stereo technique to display the left and right views, adjustments in the horizontal, $s_x$, or vertical, $s_y$, scales are applied after the stereo view. In case of the modulation of the right and left views along time, there is no split and the view is fully displayed using  $s_x = s_y = 1$. In case of stereo split of the screen, each left and right views are scaled to half by $s_x = 2$, in case of vertical split, or by $s_y = 2$, in case of horizontal split. Both splits can be used to create the intertwined lines of right and left eye polarization.  
 
-The convergence point is moved from $z=-\infty$ towards $+z$ by the shearing, as shown in Figure~\ref{fig.stereo_views}b, of the left and right projection frustum by $sh_z = d_{eye}/d_{s}$. The final stereo projection matrix, $M_{stereo}$, is a matrix scaled by $s_x$ and $s_y$, and sheared $sh_z$ in Equation~\ref{eq.stereo_proj_matrix}. The stereo pipeline is the sequence of transformations: $M_{stereo}*M_{proj}*M_{eye}*M_{view}$.
+The convergence point is moved from $z=-\infty$ towards $+z$ by the shearing, as shown in Figure~\ref{fig.stereo_views}b, of the left and right projection frustum by $sh_z = d_{eye}/d_{s}$. The final stereo projection matrix, $M_{stereo}$, is a matrix scaled by $s_x$ and $s_y$, and sheared $sh_z$ in Equation~\ref{eq.stereo_proj_matrix}. The stereo pipeline is the sequence of transformations: $M_{stereo} \times M_{proj} \times M_{eye} \times M_{view}$.
 
 \begin{equation}
 \begin{aligned}
